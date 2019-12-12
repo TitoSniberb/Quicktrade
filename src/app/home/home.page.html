@@ -1,14 +1,70 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Introducir producto
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Descripción <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Categoria <ion-text color="danger">*</ion-text></ion-label>
+      <ion-select interface="popover" [(ngModel)]="option">
+        <ion-select-option value="Motor">Motor</ion-select-option>
+        <ion-select-option value="Inmobiliaria">Inmobiliaria</ion-select-option>
+        <ion-select-option value="Tecnologia">Tecnologia</ion-select-option>
+        <ion-select-option value="Hogar">Hogar</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="option == 'Motor'">
+      <ion-label>Tipo de automóvil</ion-label>
+      <ion-select interface="popover">
+          <ion-select-option value="Coche">Coche</ion-select-option>
+          <ion-select-option value="Moto">Moto</ion-select-option>
+      </ion-select>
+      <ion-input type="number" placeholder="Kilometraje"></ion-input>
+      <ion-input type="number" placeholder="Año"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="option == 'Inmobiliaria'">
+      <ion-label>Metros cuadrados</ion-label>
+      <ion-input type="number"></ion-input>
+
+      <ion-label>Numero de baños</ion-label>
+      <ion-input type="number"></ion-input>
+
+      <ion-label>Numero de habitaciones</ion-label>
+      <ion-input type="number"></ion-input>
+
+      <ion-label>Localidad</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="option == 'Tecnologia'">
+      <ion-label>Estado del producto</ion-label>
+      <ion-select interface="popover">
+          <ion-select-option value="Perfecto">Perfecto</ion-select-option>
+          <ion-select-option value="Usado">Usado</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Precio <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required type="number"></ion-input>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

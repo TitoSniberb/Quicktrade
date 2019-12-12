@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  option: string = "";
+
   constructor() {}
 
+  save_Option(value){
+    this.option = value;
+  }
+  
 }
