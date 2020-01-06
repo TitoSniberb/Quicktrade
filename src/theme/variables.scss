@@ -3,6 +3,18 @@
 
 /** Ionic CSS Variables **/
 :root {
+  h1{
+    font-size: 17px;
+    color: black;
+  }
+
+  h2{
+    font-size: 15px;
+    color: black;
+    padding-left: 5px;
+    padding-top: 3px;
+  }
+  
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
