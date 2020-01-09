@@ -11,12 +11,12 @@
   <ion-list>
     <ion-item>
       <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="nombre"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Descripción <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="descripcion"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -31,31 +31,31 @@
 
     <ion-item *ngIf="option == 'Motor'">
       <ion-label>Tipo de automóvil</ion-label>
-      <ion-select interface="popover">
-          <ion-select-option value="Coche">Coche</ion-select-option>
+      <ion-select interface="popover" [(ngModel)]="tipo">
+          <ion-select-option value="Coche" >Coche</ion-select-option>
           <ion-select-option value="Moto">Moto</ion-select-option>
       </ion-select>
-      <ion-input type="number" placeholder="Kilometraje"></ion-input>
-      <ion-input type="number" placeholder="Año"></ion-input>
+      <ion-input type="number" placeholder="Kilometraje" [(ngModel)]="kilometraje"></ion-input>
+      <ion-input type="number" placeholder="Año" [(ngModel)]="age"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="option == 'Inmobiliaria'">
       <ion-label>Metros cuadrados</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-input type="number" [(ngModel)]="metros_Cuadrados"></ion-input>
 
       <ion-label>Numero de baños</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-input type="number" [(ngModel)]="numero_Aseos"></ion-input>
 
       <ion-label>Numero de habitaciones</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-input type="number" [(ngModel)]="numero_Habitaciones"></ion-input>
 
       <ion-label>Localidad</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="localidad"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="option == 'Tecnologia'">
       <ion-label>Estado del producto</ion-label>
-      <ion-select interface="popover">
+      <ion-select interface="popover" [(ngModel)]="estado">
           <ion-select-option value="Perfecto">Perfecto</ion-select-option>
           <ion-select-option value="Usado">Usado</ion-select-option>
       </ion-select>
@@ -63,14 +63,15 @@
 
     <ion-item>
       <ion-label position="stacked">Precio <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input required type="number"></ion-input>
+      <ion-input required type="number" [(ngModel)]="precio"></ion-input>
     </ion-item>
   </ion-list>
 
                     <!--Añadir productos-->
 
-  
-
+  <ion-button expand="block" (click)="insert_Product()">
+    Insertar producto
+  </ion-button>
 
                     <!--Lista de productos-->
 
@@ -97,6 +98,10 @@
           Estado del producto: {{item.estado}} 
         </h2>
         
+        <h2 *ngIf="item.categoria == 'Hogar'">
+          Descripcion: {{item.descripcion}} 
+        </h2>
+
         <ion-item-divider></ion-item-divider><!--Crea una linea divisora-->
       </ion-text>
 
