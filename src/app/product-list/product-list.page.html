@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="ion-margin"><!--Pone un margen de 16px-->
+    
+    <ion-card-content *ngFor="let item of productos">
+      
+      <ion-text>
+        <h1>{{item.nombre}}</h1>
+
+        <ion-button expand="block" [routerLink]="['/details', 'item.id']">
+          Detalles
+        </ion-button>
+
+        <ion-item-divider></ion-item-divider><!--Crea una linea divisora-->
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
