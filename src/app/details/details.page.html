@@ -12,32 +12,36 @@
     
     <ion-card-content>
       
-      <ion-text>
-        <h1>{{producto.nombre}}</h1>
-        <h2 *ngIf="producto.categoria == 'Motor'">
-          Tipo: {{item.tipo}} <br>
-          Kilometraje: {{item.kilometraje}} <br>
-          Edad: {{item.edad}}
-        </h2>
+      <ion-list *ngIf="producto.categoria == 'Motor'">
+        <ion-label>Tipo: {{producto.tipo}} <br>
+          Kilometraje: {{producto.kilometraje}} <br>
+          Edad: {{producto.edad}}
+        </ion-label>
+      </ion-list>
 
-        <h2 *ngIf="producto.categoria == 'Inmobiliaria'">
-          Metros cuadrados: {{item.metros_Cuadrados}} <br>
-          Numero de aseos: {{item.aseos}} <br>
-          Numero de habitaciones: {{item.habitaciones}} <br>
-          Localidad: {{item.localidad}} 
-        </h2>
+      <ion-list *ngIf="producto.categoria == 'Inmobiliaria'">
+        <ion-label>
+          Metros cuadrados: {{producto.metros_Cuadrados}} <br>
+          Numero de aseos: {{producto.aseos}} <br>
+          Numero de habitaciones: {{producto.habitaciones}} <br>
+          Localidad: {{producto.localidad}} 
+        </ion-label>
+      </ion-list>
 
-        <h2 *ngIf="producto.categoria == 'Tecnologia'">
-          Estado del producto: {{item.estado}} 
-        </h2>
-        
-        <h2 *ngIf="producto.categoria == 'Hogar'">
-          Descripcion: {{item.descripcion}} 
-        </h2>
+      <ion-list *ngIf="producto.categoria == 'Tecnologia'">
+        <ion-label>
+          Estado del producto: {{producto.estado}} 
+        </ion-label>
+      </ion-list>
 
-        <ion-item-divider></ion-item-divider><!--Crea una linea divisora-->
-      </ion-text>
+      <ion-list *ngIf="producto.categoria == 'Hogar'">
+        <ion-label>
+          Descripcion: {{producto.descripcion}} 
+        </ion-label>
+      </ion-list>
+
     </ion-card-content>
+    
   </ion-card>
 
 </ion-content>

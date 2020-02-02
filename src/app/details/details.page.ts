@@ -10,21 +10,19 @@ import { IProducto, IMotor, ITecnologia, IInmobiliaria } from '../interfaces';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-
-  id: number;
+  id: string;
   producto: (IProducto | IMotor | ITecnologia | IInmobiliaria);
 
   constructor(private _activatedRoute: ActivatedRoute, private _productoService: ProductoService) { }
 
   ngOnInit() {
-    //this.id = +this._activatedRoute.snapshot.paramMap.get('id');
-    let ref = this._productoService.getProductos();
+    this.id = this._activatedRoute.snapshot.paramMap.get('id');
+    let ref = this._productoService.getProductos().orderByKey().equalTo(this.id);
 
-    ref.once("value", snapshot => {
-      snapshot.forEach(child => {
-        let value = child.val().id;
-        
-      });
+    ref.once("value", snap => {
+      snap.forEach(child => {
+        this.producto=child.val();
+      })
     })
   }
 
