@@ -6,10 +6,16 @@
 
 <ion-content>
 
-  <ion-card *ngIf="productos != undefined" class="ion-margin"><!--Pone un margen de 16px-->
-    
-    <ion-card-content *ngFor="let item of productos">
-      
+  <ion-select placeholder="Categoria" interface="popover" [(ngModel)]="option">
+    <ion-select-option value="Motor">Motor</ion-select-option>
+    <ion-select-option value="Inmobiliaria">Inmobiliaria</ion-select-option>
+    <ion-select-option value="Tecnologia">Tecnologia</ion-select-option>
+    <ion-select-option value="Hogar">Hogar</ion-select-option>
+  </ion-select>
+
+  <div *ngFor="let item of productos">
+    <div *ngIf="item.categoria == option">
+
       <ion-text>
         <h1>{{item.nombre}}</h1>
 
@@ -27,7 +33,8 @@
 
         <ion-item-divider></ion-item-divider><!--Crea una linea divisora-->
       </ion-text>
-    </ion-card-content>
-  </ion-card>
+
+    </div>
+  </div>
 
 </ion-content>

@@ -10,6 +10,7 @@ import { IProducto, IMotor, ITecnologia, IInmobiliaria } from '../interfaces';
 export class MyProductsPage implements OnInit {
 
   productos: (IProducto | IMotor | ITecnologia | IInmobiliaria)[] = [];
+  option: string = "";
 
   constructor(private _activatedRoute: ActivatedRoute, private _ProductoService : ProductoService) { }
 
