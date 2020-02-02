@@ -14,9 +14,9 @@ export class MyProductsPage implements OnInit {
   constructor(private _activatedRoute: ActivatedRoute, private _ProductoService : ProductoService) { }
 
   ngOnInit() {
-    let ref = this._ProductoService.getProductosByUser("mKilGUHPNfex87XCNefC601AUhX2");
+    let ref = this._ProductoService.getProductos();
 
-    ref.once("value", snap => {
+    ref.orderByChild("propietario").equalTo("mKilGUHPNfex87XCNefC601AUhX2").once("value", snap => {
       snap.forEach(child => {
         this.productos.push(child.val());
       })

@@ -70,6 +70,7 @@ export class ProductoService{
 
       ref.orderByChild("propietario").equalTo(id).once("value", snap => {
         snap.forEach(child => {
+          
           if(child.val().propietario == id) return child.val();
         })
       });
