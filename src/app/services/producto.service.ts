@@ -54,26 +54,14 @@ export class ProductoService{
 
     getProductos(): firebase.database.Reference{
       let ref = this._db.database.ref("productos");
+      
       return ref;
     }
 
-    getProducto(id: number): firebase.database.Reference{ 
+    getProducto(id): firebase.database.Reference{ 
       //return this.productos.find(x => x.id == id); //Filtra por id
-      let ref = this._db.database.ref("productos");
-      ref.orderByChild('id').equalTo(id);
+      let ref = this._db.database.ref("productos/" + id);
 
-      return ref;
-    }
-    
-    getProductosByUser(id: string): firebase.database.Reference{
-      let ref = this._db.database.ref("productos");
-
-      ref.orderByChild("propietario").equalTo(id).once("value", snap => {
-        snap.forEach(child => {
-          
-          if(child.val().propietario == id) return child.val();
-        })
-      });
       return ref;
     }
 
