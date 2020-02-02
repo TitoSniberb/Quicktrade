@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { IProducto, IMotor, ITecnologia, IInmobiliaria } from '../interfaces';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable()
 
 export class ProductoService{
 
-    productos: (IProducto | IMotor | ITecnologia | IInmobiliaria)[] = [
+    /*productos: (IProducto | IMotor | ITecnologia | IInmobiliaria)[] = [
         {
           "id": 1,
           "nombre": "Nissan Skyline R32",
@@ -45,14 +46,62 @@ export class ProductoService{
           "edad": 26,
           "precio": 60000,  
         },
-      ]
+      ]*/
 
-    getProductos(): IProducto[]{
-        return this.productos;
+      constructor(private _db: AngularFireDatabase){
+
+      }
+
+    getProductos(): firebase.database.Reference{
+      let ref = this._db.database.ref("productos");
+      return ref;
     }
 
-    getProducto(id: number): IProducto{ 
-        return this.productos.find(x => x.id == id); //Filtra por id
+    getProducto(id: number): firebase.database.Reference{ 
+      //return this.productos.find(x => x.id == id); //Filtra por id
+      let ref = this._db.database.ref("productos");
+      ref.orderByChild('id').equalTo(id);
+
+      return ref;
     }
     
+    getProductosByUser(id: string): firebase.database.Reference{
+      let ref = this._db.database.ref("productos");
+
+      ref.orderByChild("propietario").equalTo(id).once("value", snap => {
+        snap.forEach(child => {
+          if(child.val().propietario == id) return child.val();
+        })
+      });
+      return ref;
+    }
+
+    setProducto(producto: IProducto){
+      let ref = this._db.database.ref("productos"); //productos es la referencia a la base de datos. Producto esta dentro de "productos"
+      ref.push(producto);
+    }
+
+    deleteProduct(nombre: string){
+      let ref = this._db.database.ref("productos");
+
+      ref.orderByChild("nombre").equalTo(nombre).once("value", snap => {
+        snap.forEach(child => {
+          ref.child(child.key).remove();
+        })
+      })
+    }
+
+    modifyProduct(id: string, nom: string, desc: string, pre: number){
+      let ref = this._db.database.ref("productos");
+
+      ref.orderByChild("nombre").equalTo(id).once("value", snap => {
+        snap.forEach(child => {
+          ref.child(child.key).set({
+            nombre: nom,
+            descripcion: desc,
+            precio: pre
+          })
+        })
+      })
+    }
 }

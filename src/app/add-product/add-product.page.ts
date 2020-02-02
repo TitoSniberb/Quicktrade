@@ -12,6 +12,7 @@ export class AddProductPage implements OnInit {
 
   option: string = "";
   
+  propietario: string = "";
   nombre: string = "";
   descripcion: string = "";
   tipo: string = "";
@@ -24,7 +25,7 @@ export class AddProductPage implements OnInit {
   estado: string = "";
   precio: number = null;
 
-  productos: (IProducto | IMotor | ITecnologia | IInmobiliaria)[];
+  productos: (IProducto | IMotor | ITecnologia | IInmobiliaria)[] = [];
 
   constructor(
     private _toast : ToastController,
@@ -34,7 +35,8 @@ export class AddProductPage implements OnInit {
     }
 
     ngOnInit(){
-      this.productos = this._ProductosService.getProductos();
+      //this.productos = this._ProductosService.getProductos();
+      this.propietario = "mKilGUHPNfex87XCNefC601AUhX2";
     }
 
     async toast_IsEmpty() {
@@ -83,6 +85,7 @@ export class AddProductPage implements OnInit {
     insert_Product(){
       let motor: IMotor={
         "id": this.productos.length + 1,
+        "propietario": this.propietario,
         "nombre": this.nombre,
         "descripcion": this.descripcion,
         "categoria": this.option,
@@ -94,6 +97,7 @@ export class AddProductPage implements OnInit {
   
       let inmobiliaria: IInmobiliaria={
         "id": this.productos.length + 1,
+        "propietario": this.propietario,
         "nombre": this.nombre,
         "descripcion": this.descripcion,
         "categoria": this.option,
@@ -106,6 +110,7 @@ export class AddProductPage implements OnInit {
   
       let tecnologia: ITecnologia={
         "id": this.productos.length + 1,
+        "propietario": this.propietario,
         "nombre": this.nombre,
         "descripcion": this.descripcion,
         "categoria": this.option,
@@ -115,6 +120,7 @@ export class AddProductPage implements OnInit {
   
       let hogar: IProducto={
         "id": this.productos.length + 1,
+        "propietario": this.propietario,
         "nombre": this.nombre,
         "descripcion": this.descripcion,
         "categoria": this.option,
@@ -124,19 +130,23 @@ export class AddProductPage implements OnInit {
       if(this.isEmpty() == false){
   
         if(this.option == "Motor"){
-          this.productos.push(motor)
+          //this.productos.push(motor)
+          this._ProductosService.setProducto(motor);
           this.toast_Inserted();
   
         } else if(this.option == "Tecnologia"){
-          this.productos.push(tecnologia)
+          //this.productos.push(tecnologia)
+          this._ProductosService.setProducto(tecnologia);
           this.toast_Inserted();
   
         } else if(this.option == "Inmobiliaria"){
-          this.productos.push(inmobiliaria)
+          //this.productos.push(inmobiliaria)
+          this._ProductosService.setProducto(inmobiliaria);
           this.toast_Inserted();
   
         } else{
-          this.productos.push(hogar)
+          //this.productos.push(hogar)
+          this._ProductosService.setProducto(hogar);
           this.toast_Inserted();
         };
   

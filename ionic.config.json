@@ -1,5 +1,7 @@
 {
   "name": "Quicktrade",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

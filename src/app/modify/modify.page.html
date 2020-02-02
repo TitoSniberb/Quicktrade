@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>Modificar producto</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Descripción <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="text" [(ngModel)]="descripcion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Precio <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required type="number" [(ngModel)]="precio"></ion-input>
+    </ion-item>
+  </ion-list>
+
+<ion-button expand="block" (click)="onModify(nombre, descripcion, precio)">
+  Modificar producto
+</ion-button>
+
+</ion-content>
