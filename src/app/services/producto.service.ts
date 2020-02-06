@@ -95,6 +95,7 @@ export class ProductoService{
       })
     }
 
+    //<!--B  ---------------------------------------------------- -->
     likeProduct(){
       let ref = this._db.database.ref("productos");
 
@@ -116,6 +117,6 @@ export class ProductoService{
         })
       });
     }
-
+//<!--Fin B  ---------------------------------------------------- -->
     
 }
