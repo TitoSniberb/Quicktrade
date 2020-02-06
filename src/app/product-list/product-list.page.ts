@@ -31,17 +31,40 @@ export class ProductListPage implements OnInit {
   //<!--A  ---------------------------------------------------- -->
   async toast_MeGusta() {
     const toast = await this._toast.create({
-      message: 'Añadido a me gusta',
+      message: 'Añadido a favoritos',
       duration: 2000,
       position: 'bottom',
     });
     toast.present();
   }
-
-  onClick(){
-    this.toast_MeGusta();
-
-    this._ProductoService.likeProduct();
-  }
   //<!-- Fin A  ---------------------------------------------------- -->
+
+  async toast_sorry() {
+    const toast = await this._toast.create({
+      message: 'Este producto ya esta en favoritos',
+      duration: 2000,
+      position: 'bottom',
+    });
+    toast.present();
+  }
+  
+  isLiked(){
+    if(this._ProductoService.isLiked("mKilGUHPNfex87XCNefC601AUhX2").length >= 0) return true;
+    else return false;
+  }
+
+  onLike(){
+    
+    /*if(this.isLiked()){
+      this.toast_sorry();
+    }
+    else{*/
+      this._ProductoService.likeProduct();
+      this.toast_MeGusta();
+    //}
+  }
+  
+  onDislike(){
+    this._ProductoService.dislikeProduct();
+  }
 }

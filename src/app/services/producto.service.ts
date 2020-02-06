@@ -95,7 +95,7 @@ export class ProductoService{
       })
     }
 
-    //<!--B  ---------------------------------------------------- -->
+    //<!--D  ---------------------------------------------------- -->
     likeProduct(){
       let ref = this._db.database.ref("productos");
 
@@ -117,6 +117,45 @@ export class ProductoService{
         })
       });
     }
-//<!--Fin B  ---------------------------------------------------- -->
+
+    dislikeProduct(){
+      let ref = this._db.database.ref("productos");
+
+      ref.orderByChild("propietario").equalTo("mKilGUHPNfex87XCNefC601AUhX2").once("value", snap => {
+        snap.forEach(child => {
+          let clave = child.key;
+          ref.child(clave).child("fav").set("");
+        })
+      });
+
+      let ref2 = this._db.database.ref("usuarios");
+      
+      ref2.orderByChild("id").equalTo("mKilGUHPNfex87XCNefC601AUhX2").once("value", snap => {
+        snap.forEach(child => {
+          let clave = child.key;
+
+          let cantFav = child.val().cantidadFav;
+          if(cantFav > 0){
+            ref2.child(clave).child("cantidadFav").set(cantFav - 1);
+          }
+        })
+      });
+    }
     
+    isLiked(propietarioId){
+      let ref = this._db.database.ref("productos");
+      let i = 0;
+      let val = [];
+
+      ref.orderByChild("fav").equalTo(propietarioId).once("value", snap => {
+        snap.forEach(child => {
+          let clave = child.key;
+          if(ref.child(clave).equalTo(propietarioId)) val.push(i);
+          i++;
+        })
+      })
+
+      return val;
+    }
+//<!--Fin D  ---------------------------------------------------- -->
 }
