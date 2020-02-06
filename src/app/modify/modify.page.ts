@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../services/producto.service';
 import { ToastController } from '@ionic/angular';
+import { IProducto, IMotor, ITecnologia, IInmobiliaria } from '../interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-modify',
@@ -9,13 +11,33 @@ import { ToastController } from '@ionic/angular';
 })
 export class ModifyPage implements OnInit {
 
+  id: string;
+
   nombre: string = "";
   descripcion: string = "";
+  tipo: string = "";
+  kilometraje: number = null;
+  age: number = null;
+  metros_Cuadrados: number = null;
+  numero_Aseos: number = null;
+  numero_Habitaciones: number = null;
+  localidad: string = "";
+  estado: string = "";
   precio: number = null;
 
-  constructor(private _toast : ToastController, private _ProductosService : ProductoService,) { }
+  producto: (IProducto | IMotor | ITecnologia | IInmobiliaria);
+
+  constructor(private _activatedRoute: ActivatedRoute, private _toast : ToastController, private _productosService : ProductoService,) { }
 
   ngOnInit() {
+    this.id = this._activatedRoute.snapshot.paramMap.get('id');
+    let ref = this._productosService.getProductos().orderByKey().equalTo(this.id);
+
+    ref.once("value", snap => {
+      snap.forEach(child => {
+        this.producto=child.val();
+      })
+    })
   }
 
   async toast_IsEmpty() {
@@ -43,13 +65,16 @@ export class ModifyPage implements OnInit {
     } else return false;
   }
 
-  onModify(nom: string, desc: string, pre: number){
+  onModify(){
     if(this.isEmpty()){
       this.toast_IsEmpty();
     }
     else {
-      let id = this.nombre;
-      this._ProductosService.modifyProduct(id, nom, desc, pre);
+      let ref = this._ProductosService.getProductos();
+
+      ref.child(this.key).set(this.item);
+      console.log("Producto modificado correctamente")
+      this.router.navigateByUrl('/mis-productos');
       this.toast_Inserted();
     }
     
