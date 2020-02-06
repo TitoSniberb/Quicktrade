@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IProducto, IMotor, ITecnologia, IInmobiliaria } from '../interfaces';
 import { ToastController } from '@ionic/angular';
 import { ProductoService } from '../services/producto.service';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -12,6 +14,7 @@ export class AddProductPage implements OnInit {
 
   option: string = "";
   
+  id: string = "";
   propietario: string = "";
   nombre: string = "";
   descripcion: string = "";
@@ -30,6 +33,8 @@ export class AddProductPage implements OnInit {
   constructor(
     private _toast : ToastController,
     private _ProductosService : ProductoService,
+    private _db: AngularFireDatabase,
+    private _activatedRoute: ActivatedRoute
     ){
 
     }
@@ -37,6 +42,11 @@ export class AddProductPage implements OnInit {
     ngOnInit(){
       //this.productos = this._ProductosService.getProductos();
       this.propietario = "mKilGUHPNfex87XCNefC601AUhX2";
+    }
+
+    actualizarClave(clave: string){
+      let ref = this._db.database.ref("productos/" + clave + "/id");
+      ref.set(clave);
     }
 
     async toast_IsEmpty() {
@@ -60,7 +70,7 @@ export class AddProductPage implements OnInit {
     save_Option(value){
       this.option = value;
     }
-  
+  /*
     isEmpty(){
       if(this.nombre == "" || this.descripcion == "" || this.option == "" || this.precio == null){
         return true;
@@ -81,52 +91,72 @@ export class AddProductPage implements OnInit {
         }else return false;
       }
     }
-  
+  */
     insert_Product(){
-      let motor: IMotor={
-        "id": this.productos.length + 1,
-        "propietario": this.propietario,
-        "nombre": this.nombre,
-        "descripcion": this.descripcion,
-        "categoria": this.option,
-        "tipo": this.tipo,
-        "kilometraje": this.kilometraje,
-        "edad": this.age,
-        "precio": this.precio, 
-      };
-  
-      let inmobiliaria: IInmobiliaria={
-        "id": this.productos.length + 1,
-        "propietario": this.propietario,
-        "nombre": this.nombre,
-        "descripcion": this.descripcion,
-        "categoria": this.option,
-        "metros_Cuadrados": this.metros_Cuadrados,
-        "aseos": this.numero_Aseos,
-        "habitaciones": this.numero_Habitaciones,
-        "localidad": this.localidad,
-        "precio": 150000, 
+      if(this.option == "Motor"){
+        let motor: IMotor={
+          "id": this.id,
+          "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
+          "nombre": this.nombre,
+          "descripcion": this.descripcion,
+          "categoria": this.option,
+          "tipo": this.tipo,
+          "kilometraje": this.kilometraje,
+          "edad": this.age,
+          "precio": this.precio, 
+        };
+
+        let clave: string = this._ProductosService.setProducto(motor);
+        this.actualizarClave(clave);
       }
-  
-      let tecnologia: ITecnologia={
-        "id": this.productos.length + 1,
-        "propietario": this.propietario,
-        "nombre": this.nombre,
-        "descripcion": this.descripcion,
-        "categoria": this.option,
-        "estado": this.estado,
-        "precio": this.precio,
+      
+      if(this.option == "Inmobiliaria"){
+        let inmobiliaria: IInmobiliaria={
+          "id": this.id,
+          "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
+          "nombre": this.nombre,
+          "descripcion": this.descripcion,
+          "categoria": this.option,
+          "metros_Cuadrados": this.metros_Cuadrados,
+          "aseos": this.numero_Aseos,
+          "habitaciones": this.numero_Habitaciones,
+          "localidad": this.localidad,
+          "precio": 150000, 
+        };
+
+        let clave: string = this._ProductosService.setProducto(inmobiliaria);
+        this.actualizarClave(clave);
       }
-  
-      let hogar: IProducto={
-        "id": this.productos.length + 1,
-        "propietario": this.propietario,
-        "nombre": this.nombre,
-        "descripcion": this.descripcion,
-        "categoria": this.option,
-        "precio": this.precio,
+
+      if(this.option == "Tecnologia"){
+        let tecnologia: ITecnologia={
+          "id": this.id,
+          "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
+          "nombre": this.nombre,
+          "descripcion": this.descripcion,
+          "categoria": this.option,
+          "estado": this.estado,
+          "precio": this.precio,
+        };
+
+        let clave: string = this._ProductosService.setProducto(tecnologia);
+        this.actualizarClave(clave);
       }
-  
+
+      if(this.option == "Hogar"){
+        let hogar: IProducto={
+          "id": this.id,
+          "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
+          "nombre": this.nombre,
+          "descripcion": this.descripcion,
+          "categoria": this.option,
+          "precio": this.precio,
+        };
+
+        let clave: string = this._ProductosService.setProducto(hogar);
+        this.actualizarClave(clave);
+      }
+/*
       if(this.isEmpty() == false){
   
         if(this.option == "Motor"){
@@ -153,6 +183,6 @@ export class AddProductPage implements OnInit {
       } else{
         this.toast_IsEmpty();
       }
-  
+  */
     }
 }

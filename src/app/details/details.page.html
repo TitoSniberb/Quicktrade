@@ -10,33 +10,37 @@
 
   <ion-card class="ion-margin"><!--Pone un margen de 16px-->
     
-    <ion-card-content>
+    <ion-card-content *ngFor="let item of productos">
       
-      <ion-list *ngIf="producto.categoria == 'Motor'">
-        <ion-label>Tipo: {{producto.tipo}} <br>
-          Kilometraje: {{producto.kilometraje}} <br>
-          Edad: {{producto.edad}}
+      <ion-label>Nombre: {{item.nombre}} <br>
+        Descripcion: {{item.descripcion}} <br>
+      </ion-label>
+
+      <ion-list *ngIf="item.categoria == 'Motor'">
+        <ion-label>Tipo: {{item.tipo}} <br>
+          Kilometraje: {{item.kilometraje}} <br>
+          Edad: {{item.edad}}
         </ion-label>
       </ion-list>
 
-      <ion-list *ngIf="producto.categoria == 'Inmobiliaria'">
+      <ion-list *ngIf="item.categoria == 'Inmobiliaria'">
         <ion-label>
-          Metros cuadrados: {{producto.metros_Cuadrados}} <br>
-          Numero de aseos: {{producto.aseos}} <br>
-          Numero de habitaciones: {{producto.habitaciones}} <br>
-          Localidad: {{producto.localidad}} 
+          Metros cuadrados: {{item.metros_Cuadrados}} <br>
+          Numero de aseos: {{item.aseos}} <br>
+          Numero de habitaciones: {{item.habitaciones}} <br>
+          Localidad: {{item.localidad}} 
         </ion-label>
       </ion-list>
 
-      <ion-list *ngIf="producto.categoria == 'Tecnologia'">
+      <ion-list *ngIf="item.categoria == 'Tecnologia'">
         <ion-label>
-          Estado del producto: {{producto.estado}} 
+          Estado del producto: {{item.estado}} 
         </ion-label>
       </ion-list>
 
-      <ion-list *ngIf="producto.categoria == 'Hogar'">
+      <ion-list *ngIf="item.categoria == 'Hogar'">
         <ion-label>
-          Descripcion: {{producto.descripcion}} 
+          Descripcion: {{productos.descripcion}} 
         </ion-label>
       </ion-list>
 

@@ -1,5 +1,5 @@
 export interface IProducto{
-    "id": number,
+    "id": string,
     "propietario": string,
     "nombre": string,
     "descripcion": string,

@@ -1,40 +1,94 @@
 <ion-header>
-
   <ion-toolbar>
-    <ion-title>Modificar producto</ion-title>
+    <ion-title>Modifica el producto</ion-title>
   </ion-toolbar>
-
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngIf="producto.categoria == 'Motor'">
-      <ion-input type="text" placeholder="Nombre" [(ngModel)]="nombre"></ion-input>
-      <ion-input type="text" placeholder="Descripcion" [(ngModel)]="descripcion"></ion-input>
-      <ion-input type="number" placeholder="Kilometraje" [(ngModel)]="kilometraje"></ion-input>
-      <ion-input type="number" placeholder="Año" [(ngModel)]="age"></ion-input>
+
+  <ion-item>
+    <ion-label position="stacked">Nombre<ion-text color="danger">*</ion-text>
+    </ion-label>
+    <ion-input clearInput [(ngModel)]="item.nombre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Descripción<ion-text color="danger">*</ion-text>
+    </ion-label>
+    <ion-input clearInput [(ngModel)]="item.descripcion"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Precio<ion-text color="danger">*</ion-text>
+    </ion-label>
+    <ion-input clearInput [(ngModel)]="item.precio"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Categoría<ion-text color="danger">*</ion-text>
+    </ion-label>
+    <ion-select [placeholder]="placeholder_desplegable" [(ngModel)]="item.categoria">
+      <ion-select-option value="Tecnologia">Tecnología</ion-select-option>
+      <ion-select-option value="Hogar">Hogar</ion-select-option>
+      <ion-select-option value="Inmobiliaria">Inmobiliaria</ion-select-option>
+      <ion-select-option value="Motor">Motor</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list *ngIf="item.categoria == 'Motor'">
+    <ion-item>
+      <ion-label>Estado:</ion-label>
+      <ion-select [(ngModel)]="item.tipo">
+        <ion-select-option value="Coche">Coche</ion-select-option>
+        <ion-select-option value="Moto">Moto</ion-select-option>
+      </ion-select>
     </ion-item>
 
-    <ion-item *ngIf="producto.categoria == 'Inmobiliaria'">
-      <ion-input type="text" placeholder="Descripcion" [(ngModel)]="descripcion"></ion-input>
-      <ion-input type="number" placeholder="Metros cuadrados" [(ngModel)]="metros_Cuadrados"></ion-input>
-      <ion-input type="number" placeholder="Numero aseos" [(ngModel)]="numero_Aseos"></ion-input>
-      <ion-input type="number" placeholder="Numero habitaciones" [(ngModel)]="numero_Habitaciones"></ion-input>
+    <ion-item>
+      <ion-label>Kilometros:</ion-label>
+      <ion-input clearInput type="number" [(ngModel)]="item.kilometraje">
+      </ion-input>
     </ion-item>
 
-    <ion-item *ngIf="producto.categoria == 'Tecnologia'">
-      <ion-label position="stacked">Precio <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input required type="number" [(ngModel)]="precio"></ion-input>
+    <ion-item>
+      <ion-label position="floating">Año</ion-label>
+      <ion-input type="number" [(ngModel)]="item.edad"></ion-input>
     </ion-item>
 
-    <ion-item *ngIf="producto.categoria == 'Hogar'">
-      <ion-label position="stacked">Precio <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input required type="number" [(ngModel)]="precio"></ion-input>
+  </ion-list>
+
+  <ion-list *ngIf="item.categoria == 'Inmobiliaria'">
+    <ion-item>
+      <ion-label>Metros cuadrados:</ion-label>
+      <ion-input clearInput type="number" [(ngModel)]="item.metros_Cuadrados"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Número baños:</ion-label>
+      <ion-input clearInput type="number" [(ngModel)]="item.aseos"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Número habitaciones:</ion-label>
+      <ion-input clearInput type="number" [(ngModel)]="item.habitaciones"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Localidad:</ion-label>
+      <ion-input clearInput [placeholder]="placeholder_default" [(ngModel)]="localidad"></ion-input>
     </ion-item>
   </ion-list>
 
-<ion-button expand="block" (click)="onModify()">
-  Modificar producto
-</ion-button>
+  <ion-item *ngIf="item.categoria == 'Tecnologia'">
+    <ion-label>Estado del producto:</ion-label>
+    <ion-select [(ngModel)]="item.estado">
+      <ion-select-option value="Perfecto">Perfecto estado</ion-select-option>
+      <ion-select-option value="Usado">Usado</ion-select-option>
+    </ion-select>
+  </ion-item>
 
+  
+
+  <ion-button expand="block" (click)="onModify()">Guardar</ion-button>
+  
 </ion-content>

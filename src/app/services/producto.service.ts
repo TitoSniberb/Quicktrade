@@ -65,9 +65,10 @@ export class ProductoService{
       return ref;
     }
 
-    setProducto(producto: IProducto){
+    setProducto(producto: (IProducto | IMotor | ITecnologia | IInmobiliaria)) : string{
       let ref = this._db.database.ref("productos"); //productos es la referencia a la base de datos. Producto esta dentro de "productos"
-      ref.push(producto);
+      let nuevaref : string = ref.push(producto).key;
+      return nuevaref;
     }
 
     deleteProduct(nombre: string){

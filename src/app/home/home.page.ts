@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  
+  id: string;
+
+  constructor(){}
+
+  ngOnInit(){
+    this.id = "mKilGUHPNfex87XCNefC601AUhX2";
+  }
 }

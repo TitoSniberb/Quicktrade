@@ -10,7 +10,7 @@
                         <!--Añadir productos-->
   <ion-card class="ion-padding">
     
-    <ion-button expand="block" routerLink="/add-product" class="ion-margin">
+    <ion-button expand="block" [routerLink]="['/add-product', id]" class="ion-margin">
       Insertar producto
     </ion-button>
  
@@ -20,7 +20,7 @@
     </ion-button>
 
                         <!--Mis productos-->
-    <ion-button expand="block" routerLink="/my-products" class="ion-margin">
+    <ion-button expand="block" [routerLink]="['/my-products', id]" class="ion-margin">
       Mis productos
     </ion-button>
 

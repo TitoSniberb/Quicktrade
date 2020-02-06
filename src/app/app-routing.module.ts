@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: () => import('./product-list/product-list.module').then( m => m.ProductListPageModule)
   },
   {
-    path: 'add-product',
+    path: 'add-product/:id',
     loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
   },
   {
@@ -17,11 +17,11 @@ const routes: Routes = [
     loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
   },
   {
-    path: 'home',
+    path: 'home/:id',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'my-products',
+    path: 'my-products/:id',
     loadChildren: () => import('./my-products/my-products.module').then( m => m.MyProductsPageModule)
   },
   {

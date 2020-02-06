@@ -10,8 +10,8 @@ import { IProducto, IMotor, ITecnologia, IInmobiliaria } from '../interfaces';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  id: string;
-  producto: (IProducto | IMotor | ITecnologia | IInmobiliaria);
+  id: string = "";
+  productos: (IProducto | IMotor | ITecnologia | IInmobiliaria)[] = [];
 
   constructor(private _activatedRoute: ActivatedRoute, private _productoService: ProductoService) { }
 
@@ -21,7 +21,7 @@ export class DetailsPage implements OnInit {
 
     ref.once("value", snap => {
       snap.forEach(child => {
-        this.producto=child.val();
+        this.productos.push(child.val());
       })
     })
   }
