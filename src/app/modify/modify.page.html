@@ -24,17 +24,6 @@
     <ion-input clearInput [(ngModel)]="item.precio"></ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">Categoría<ion-text color="danger">*</ion-text>
-    </ion-label>
-    <ion-select [placeholder]="placeholder_desplegable" [(ngModel)]="item.categoria">
-      <ion-select-option value="Tecnologia">Tecnología</ion-select-option>
-      <ion-select-option value="Hogar">Hogar</ion-select-option>
-      <ion-select-option value="Inmobiliaria">Inmobiliaria</ion-select-option>
-      <ion-select-option value="Motor">Motor</ion-select-option>
-    </ion-select>
-  </ion-item>
-
   <ion-list *ngIf="item.categoria == 'Motor'">
     <ion-item>
       <ion-label>Estado:</ion-label>
