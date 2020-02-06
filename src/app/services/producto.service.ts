@@ -94,4 +94,28 @@ export class ProductoService{
         })
       })
     }
+
+    likeProduct(){
+      let ref = this._db.database.ref("productos");
+
+      ref.orderByChild("propietario").equalTo("mKilGUHPNfex87XCNefC601AUhX2").once("value", snap => {
+        snap.forEach(child => {
+          let clave = child.key;
+          ref.child(clave).child("fav").set("mKilGUHPNfex87XCNefC601AUhX2");
+        })
+      });
+
+      let ref2 = this._db.database.ref("usuarios");
+      
+      ref2.orderByChild("id").equalTo("mKilGUHPNfex87XCNefC601AUhX2").once("value", snap => {
+        snap.forEach(child => {
+          let clave = child.key;
+
+          let cantFav = child.val().cantidadFav;
+          ref2.child(clave).child("cantidadFav").set(cantFav + 1);
+        })
+      });
+    }
+
+    
 }

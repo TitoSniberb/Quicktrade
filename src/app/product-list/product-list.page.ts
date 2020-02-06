@@ -40,6 +40,8 @@ export class ProductListPage implements OnInit {
 
   onClick(){
     this.toast_MeGusta();
+
+    this._ProductoService.likeProduct();
   }
   //<!-- Fin A  ---------------------------------------------------- -->
 }
