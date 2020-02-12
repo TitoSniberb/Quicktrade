@@ -18,13 +18,13 @@
         </ion-button>
 
         <!--A  ---------------------------------------------------- -->
-        <ion-button expand="block" (click)="onLike()">
+        <ion-button expand="block" (click)="meGusta(item.nombre)" *ngIf = "comprobarFavorito(item.nombre) == false">
           Me gusta
         </ion-button>
         <!-- Fin A  ---------------------------------------------------- -->
 
         <!--D  ---------------------------------------------------- -->
-        <ion-button expand="block" (click)="onDislike()">
+        <ion-button expand="block" (click)="noMeGusta(item.nombre)" *ngIf = "comprobarFavorito(item.nombre)">
           No me gusta
         </ion-button>
         <!-- Fin D  ---------------------------------------------------- -->

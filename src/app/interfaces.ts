@@ -23,3 +23,8 @@ export interface IInmobiliaria extends IProducto{
 export interface ITecnologia extends IProducto{
     "estado": string,
 }
+
+export interface IFavorito {
+    "producto": string,
+    "usuario": string
+}

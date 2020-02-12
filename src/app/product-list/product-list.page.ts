@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductoService } from '../services/producto.service';
-import { IProducto, IMotor, ITecnologia, IInmobiliaria } from '../interfaces';
+import { IProducto, IMotor, ITecnologia, IInmobiliaria, IFavorito } from '../interfaces';
 import { ToastController } from '@ionic/angular';
+import { MeGustaService } from '../services/megusta.service';
 
 @Component({
   selector: 'app-product-list',
@@ -12,13 +13,23 @@ import { ToastController } from '@ionic/angular';
 export class ProductListPage implements OnInit {
 
   productos: (IProducto | IMotor | ITecnologia | IInmobiliaria)[] = [];
+  productosMG: IFavorito[] = [];
 
   constructor(
     private _activatedRoute: ActivatedRoute, 
     private _ProductoService : ProductoService,
-    private _toast : ToastController,) { }
+    private _toast : ToastController,
+    private _mgService : MeGustaService) { }
 
   ngOnInit() {
+    this.descargarDatos();
+  }
+
+  descargarDatos(){
+
+    this.productosMG = [];
+    this.productos = [];
+
     let ref = this._ProductoService.getProductos();
 
     ref.once("value", snapshot => { //once para que lo haga una sola vez
@@ -26,8 +37,17 @@ export class ProductListPage implements OnInit {
         let value = child.val();
         this.productos.push(value); //hace el push al array productos
       })
-    } )
+    });
+
+    let ref2 = this._mgService.getProductos().orderByChild("usuario").equalTo("mKilGUHPNfex87XCNefC601AUhX2");
+    ref2.once("value", snapshot => {
+      snapshot.forEach(child => {
+        let value = child.val();
+        this.productosMG.push(value);
+      })
+    })
   }
+
   //<!--A  ---------------------------------------------------- -->
   async toast_MeGusta() {
     const toast = await this._toast.create({
@@ -47,24 +67,45 @@ export class ProductListPage implements OnInit {
     });
     toast.present();
   }
+
+  comprobarFavorito(nombre: string){
+    //Compruebo si el producto esta en la lista
+    let existe: boolean = false;
+
+    for (let i = 0; i < this.productosMG.length; i++) {
+      if (nombre == this.productosMG[i].producto) {
+        existe=true;
+      }
+    }
+    return existe;
+  }
   
-  isLiked(){
-    if(this._ProductoService.isLiked("mKilGUHPNfex87XCNefC601AUhX2").length >= 0) return true;
-    else return false;
+  meGusta(nombre: string){
+    let favorito : object = {
+      producto: nombre,
+      usuario: "mKilGUHPNfex87XCNefC601AUhX2"
+    }
+    this._mgService.setProducto(favorito);
+    this.toast_MeGusta();
+
+    this.descargarDatos();
   }
 
-  onLike(){
+  noMeGusta(nombre: string){
     
-    /*if(this.isLiked()){
-      this.toast_sorry();
-    }
-    else{*/
-      this._ProductoService.likeProduct();
-      this.toast_MeGusta();
-    //}
+    let ref = this._mgService.getProductos();
+
+    ref.orderByChild("producto").equalTo(nombre).once("value", snapshot => {
+      this.productosMG = [];
+      snapshot.forEach(child => {
+        let clave = child.key;
+        ref.child(clave).remove();
+      })
+    })
+
+    console.log("Ya no me gusta")
+
+    this.descargarDatos();
   }
-  
-  onDislike(){
-    this._ProductoService.dislikeProduct();
-  }
+
 }
