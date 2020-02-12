@@ -9,25 +9,30 @@ const routes: Routes = [
     loadChildren: () => import('./product-list/product-list.module').then( m => m.ProductListPageModule)
   },
   {
-    path: 'add-product/:id',
+    path: 'add-product',
     loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
   },
   {
-    path: 'details/:id',
+    path: 'details',
     loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
   },
   {
-    path: 'home/:id',
+    path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'my-products/:id',
+    path: 'my-products',
     loadChildren: () => import('./my-products/my-products.module').then( m => m.MyProductsPageModule)
   },
   {
-    path: 'modify/:id',
+    path: 'modify',
     loadChildren: () => import('./modify/modify.module').then( m => m.ModifyPageModule)
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+
 
 
 ];

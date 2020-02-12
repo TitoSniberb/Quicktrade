@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { ProductoService } from '../services/producto.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-add-product',
@@ -34,14 +35,13 @@ export class AddProductPage implements OnInit {
     private _toast : ToastController,
     private _ProductosService : ProductoService,
     private _db: AngularFireDatabase,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private AFauth:AngularFireAuth
     ){
 
     }
 
     ngOnInit(){
-      //this.productos = this._ProductosService.getProductos();
-      this.propietario = "mKilGUHPNfex87XCNefC601AUhX2";
     }
 
     actualizarClave(clave: string){
@@ -94,7 +94,7 @@ export class AddProductPage implements OnInit {
   */
     insert_Product(){
       if(this.option == "Motor"){
-        let motor: IMotor={
+        this._ProductosService.setProducto({
           "id": this.id,
           "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
           "nombre": this.nombre,
@@ -104,14 +104,12 @@ export class AddProductPage implements OnInit {
           "kilometraje": this.kilometraje,
           "edad": this.age,
           "precio": this.precio, 
-        };
-
-        let clave: string = this._ProductosService.setProducto(motor);
-        this.actualizarClave(clave);
+          "uid": this.AFauth.auth.currentUser.uid
+        });
       }
       
       if(this.option == "Inmobiliaria"){
-        let inmobiliaria: IInmobiliaria={
+        this._ProductosService.setProducto({
           "id": this.id,
           "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
           "nombre": this.nombre,
@@ -122,14 +120,12 @@ export class AddProductPage implements OnInit {
           "habitaciones": this.numero_Habitaciones,
           "localidad": this.localidad,
           "precio": 150000, 
-        };
-
-        let clave: string = this._ProductosService.setProducto(inmobiliaria);
-        this.actualizarClave(clave);
+          "uid": this.AFauth.auth.currentUser.uid
+        });
       }
 
       if(this.option == "Tecnologia"){
-        let tecnologia: ITecnologia={
+        this._ProductosService.setProducto({
           "id": this.id,
           "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
           "nombre": this.nombre,
@@ -137,24 +133,20 @@ export class AddProductPage implements OnInit {
           "categoria": this.option,
           "estado": this.estado,
           "precio": this.precio,
-        };
-
-        let clave: string = this._ProductosService.setProducto(tecnologia);
-        this.actualizarClave(clave);
+          "uid": this.AFauth.auth.currentUser.uid
+        });
       }
 
       if(this.option == "Hogar"){
-        let hogar: IProducto={
+        this._ProductosService.setProducto({
           "id": this.id,
           "propietario": this._activatedRoute.snapshot.paramMap.get('id'),
           "nombre": this.nombre,
           "descripcion": this.descripcion,
           "categoria": this.option,
           "precio": this.precio,
-        };
-
-        let clave: string = this._ProductosService.setProducto(hogar);
-        this.actualizarClave(clave);
+          "uid": this.AFauth.auth.currentUser.uid
+        });
       }
 /*
       if(this.isEmpty() == false){

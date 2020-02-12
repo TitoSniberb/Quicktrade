@@ -5,6 +5,7 @@ export interface IProducto{
     "descripcion": string,
     "categoria": string,
     "precio": number,   
+    "uid": string
 }
 
 export interface IMotor extends IProducto{

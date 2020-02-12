@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ProductoService } from '../services/producto.service';
-import { isNgTemplate } from '@angular/compiler';
 import { MeGustaService } from '../services/megusta.service';
 import { IFavorito } from '../interfaces';
+
+import { ActivatedRoute } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -11,16 +13,19 @@ import { IFavorito } from '../interfaces';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  id: string;
+  uid: string;
   productosMG: IFavorito[] = [];
 
-  constructor(private _toast: ToastController, 
+  constructor(
+    private _toast: ToastController, 
+    private _activatedRoute: ActivatedRoute,
+    private AFauth: AngularFireAuth,
     private _productosService: ProductoService,
     private _mgService: MeGustaService){}
 
   ngOnInit(){
-    this.id = "mKilGUHPNfex87XCNefC601AUhX2";
-
+    this.uid = this.AFauth.auth.currentUser.uid;
+/*
     let ref2 = this._mgService.getProductos().orderByChild("usuario").equalTo(this.id);
 
     ref2.once("value", snapshot => {
@@ -29,6 +34,7 @@ export class HomePage {
         this.productosMG.push(value);
       })
     })
+*/
   }
 
   calcularProductos(){
