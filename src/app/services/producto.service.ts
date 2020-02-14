@@ -99,10 +99,10 @@ export class ProductoService{
     likeProduct(){
       let ref = this._db.database.ref("productos");
 
-      ref.orderByChild("propietario").equalTo("mKilGUHPNfex87XCNefC601AUhX2").once("value", snap => {
+      ref.orderByChild("propietario").equalTo("test").once("value", snap => {
         snap.forEach(child => {
           let clave = child.key;
-          ref.child(clave).child("fav").set("mKilGUHPNfex87XCNefC601AUhX2");
+          ref.child(clave).child("fav").set("test");
         })
       });
 

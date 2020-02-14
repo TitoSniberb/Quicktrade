@@ -31,7 +31,11 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },  {
+    path: 'mis-chats',
+    loadChildren: () => import('./mis-chats/mis-chats.module').then( m => m.MisChatsPageModule)
   },
+
 
 
 
