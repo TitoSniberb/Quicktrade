@@ -12,7 +12,13 @@
       <h1>{{item.nombre}}</h1>
 
     </ion-text>
-    
+
+    <!-- EJERCICIO C -->
+    <ion-button expand="block" [routerLink]="['/chat']">
+      Iniciar chat con {{item.nombre}}
+    </ion-button>
+    <!-- FIN EJERCICIO C -->
+
     <ion-item-divider></ion-item-divider><!--Crea una linea divisora-->
 
   </ion-card-content>

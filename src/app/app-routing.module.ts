@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'mis-chats',
     loadChildren: () => import('./mis-chats/mis-chats.module').then( m => m.MisChatsPageModule)
   },
+  {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+  },
 
 
 
