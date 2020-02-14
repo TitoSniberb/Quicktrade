@@ -29,3 +29,9 @@ export interface IFavorito {
     "producto": string,
     "usuario": string
 }
+
+export interface IUsuario{
+    "id": string,
+    "nombre": string,
+    "correo": string
+}
