@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { IUsuario } from '../interfaces';
 import { ProductoService } from '../services/producto.service';
 
@@ -10,6 +9,7 @@ import { ProductoService } from '../services/producto.service';
 })
 export class MisChatsPage implements OnInit {
 
+  // EJERCICIO B
   usuarios: IUsuario[] = [];
 
   constructor(
@@ -34,5 +34,5 @@ export class MisChatsPage implements OnInit {
     })
   }
 
-
+  //-- FIN EJERCICIO B -->
 }
