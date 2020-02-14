@@ -6,4 +6,15 @@
 
 <ion-content>
 
+  <!-- EJERCICIO D -->
+  <ion-item>
+    <ion-label position="floating">Chatea</ion-label>
+    <ion-textarea [(ngModel)]="mensaje"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" (click)="onSend(mensaje)">
+    Enviar
+  </ion-button>
+  <!-- FIN EJERCICIO D -->
+
 </ion-content>
